@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
+Auth::routes(); 
 Auth::routes(['verify' => true]);
-// Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->middleware('guest');
-// Route::post('/register', 'Auth\RegisterController@register')->middleware('guest'); 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); 
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');   
+Route::resource('events', EventController::class);
+
+Route::resource('bookings', BookingController::class);
