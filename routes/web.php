@@ -19,4 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Auth::routes(['verify' => true]);
+// Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->middleware('guest');
+// Route::post('/register', 'Auth\RegisterController@register')->middleware('guest'); 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); 
