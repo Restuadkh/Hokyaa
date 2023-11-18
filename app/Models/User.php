@@ -21,10 +21,20 @@ class User extends Authenticatable implements MustVerifyEmail
      */
 
     protected $primaryKey = 'user_id';
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
+        'address',
+        'phone_number',
+        'is_admin',
+        'last_login',
     ];
 
     /**

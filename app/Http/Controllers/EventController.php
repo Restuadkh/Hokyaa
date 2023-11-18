@@ -10,7 +10,7 @@ class EventController extends Controller
     // Menampilkan semua events
     public function __construct()
     {
-        $this->middleware(['auth', 'auth.and.email.verification']);
+        $this->middleware(['auth', 'verified']);
     }
     public function index()
     {
