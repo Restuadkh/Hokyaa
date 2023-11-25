@@ -51,12 +51,12 @@ class ProductController extends Controller
                 $filename = time() . '_' . $photo->getClientOriginalName();
                 $photo->storeAs('public/product_photos', $filename); 
                 $product->photos()->create([ 
-                    'photo_path' => 'product_photos/' . $filename
+                    'photo_path' => 'storage/product_photos/' . $filename
                 ]);
             }
         }
         
-        dd($product);
+        // dd($product);
         return redirect()->route('products.index')
             ->with('success', 'Product created successfully.');
     }

@@ -24,9 +24,9 @@
                 @forelse ($products as $product)
                     <tr>
                         <td>{{ $product->product_id }}</td>
-                        <td>
+                        <td> 
                             @foreach ($product->photos as $photo)
-                                <img src="{{ asset($photo->photo_path) }}" alt="Product Photo">
+                                <img src="{{ asset($photo->photo_path) }}" alt="Product Photo" style="width:50px">
                             @endforeach
                         </td>
                         <td>{{ $product->product_name }}</td>
