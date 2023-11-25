@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
     public function index()
-    {
-        $payments = Payment::all();
+    { 
+        if(auth()->user()->is_admin){
+            $payments = Payment::all();  
+        }else{
+            $payments = Payment::where('user_id','=',auth()->user()->user_id);  
+        }
         return view('payments.index', ['payments' => $payments]);
     }
 
@@ -27,6 +32,7 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
+        $order = Order::findorFail();
         // Validasi input
         $request->validate([
             // Atur aturan validasi sesuai kebutuhan

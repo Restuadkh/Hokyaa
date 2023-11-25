@@ -20,7 +20,8 @@ return new class extends Migration
             $table->timestamp('payment_date');
             $table->decimal('payment_amount', 10, 2);
             $table->string('payment_status');
-            $table->string('payment_method');
+            $table->string('payment_method'); 
+            $table->string('transfer_path')->nullable();
             $table->string('transaction_id');
             $table->timestamps();
 

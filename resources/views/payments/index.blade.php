@@ -3,51 +3,58 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Daftar Pembayaran</h1>
+    <div class="container">
+        <h1>Daftar Pembayaran</h1>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>ID Pesanan</th>
-                <th>ID User</th>
-                <th>Tanggal Pembayaran</th>
-                <th>Jumlah Pembayaran</th>
-                <th>Status Pembayaran</th>
-                <th>Metode Pembayaran</th>
-                <th>ID Transaksi</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($payments as $payment)
+        <table id="Payments" class="">
+            <thead>
                 <tr>
-                    <td>{{ $payment->payment_id }}</td>
-                    <td>{{ $payment->order_id }}</td>
-                    <td>{{ $payment->user_id }}</td>
-                    <td>{{ $payment->payment_date }}</td>
-                    <td>{{ $payment->payment_amount }}</td>
-                    <td>{{ $payment->payment_status }}</td>
-                    <td>{{ $payment->payment_method }}</td>
-                    <td>{{ $payment->transaction_id }}</td>
-                    <td>
-                        <a href="{{ route('payments.show', $payment->payment_id) }}" class="btn btn-info">Lihat</a>
-                        <a href="{{ route('payments.edit', $payment->payment_id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('payments.destroy', $payment->payment_id) }}" method="POST" style="display:inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus pembayaran ini?')">Hapus</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>ID Pesanan</th>
+                    <th>ID User</th>
+                    <th>Tanggal Pembayaran</th>
+                    <th>Jumlah Pembayaran</th>
+                    <th>Status Pembayaran</th>
+                    <th>Metode Pembayaran</th>
+                    <th>ID Transaksi</th>
+                    <th>Aksi</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <a href="{{ route('payments.create') }}" class="btn btn-success">Buat Pembayaran Baru</a>
+            </thead>
+            <tbody>
+                @foreach ($payments as $payment)
+                    <tr>
+                        <td>{{ $payment->payment_id }}</td>
+                        <td>{{ $payment->order_id }}</td>
+                        <td>{{ $payment->user_id }}</td>
+                        <td>{{ $payment->payment_date }}</td>
+                        <td>{{ $payment->payment_amount }}</td>
+                        <td>{{ $payment->payment_status }}</td>
+                        <td>{{ $payment->payment_method }}</td>
+                        <td>{{ $payment->transaction_id }}</td>
+                        <td>
+                            <a href="{{ route('payments.show', $payment->payment_id) }}" class="btn btn-info">Lihat</a>
+                            <a href="{{ route('payments.edit', $payment->payment_id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('payments.destroy', $payment->payment_id) }}" method="POST"
+                                style="display:inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus pembayaran ini?')">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <a href="{{ route('payments.create') }}" class="btn btn-success">Buat Pembayaran Baru</a>
+        <script>
+            new DataTable("#Payments");
+        </script>
+    </div>
 @endsection

@@ -3,26 +3,53 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Buat Pesanan Baru</h1>
+    <div class="container">
+        <div class="col">
+            <h1>Buat Pesanan Baru</h1>
+        </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <div class="col">
+            <form action="{{ route('orders.store') }}" method="POST">
+                @csrf 
+                <!-- Tambahkan input form sesuai dengan atribut yang diperlukan -->
+                <div class="mb-3">
+                    <label for="product_id" class="form-label">ID Produk</label>
+                    <select class="form-select" id="product_id" name="product_id" required>
+                        <option value="" selected disabled>Pilih Produk</option>
+                        @foreach ($products as $product)
+                            <option value="{{ $product->product_id }}">{{ $product->product_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-    <form action="{{ route('orders.store') }}" method="POST">
-        @csrf
+                <div class="mb-3">
+                    <label for="user_id" class="form-label">ID Events</label>
+                    <select class="form-select" id="product_id" name="product_id" required>
+                        <option value="" selected disabled>Pilih Produk</option>
+                        @foreach ($events as $event)
+                            <option value="{{ $event->event_id }}">{{ $event->event_name }}</option>
+                        @endforeach
+                    </select>
+                </div>  
 
-        <!-- Tambahkan input form sesuai dengan atribut yang diperlukan -->
-        <div class="mb-3">
-            <label for="product_id" class="form-label">ID Produk</label>
-            <input type="text" class="form-control" id="product_id" name="product_id" required>
+                <div class="mb-3">
+                    <label for="user_id" class="form-label">Shipping Address</label>
+                    <input type="text" class="form-control" id="shipping_address" name="shipping_address" required>
+                </div>
+                <!-- ...Tambahkan input form lainnya... -->
+
+                <a href="{{ route('orders.index') }}" class="btn btn-secondary">Kembali ke Daftar Pesanan</a>
+                <button type="submit" class="btn btn-primary">Buat Pesanan</button>
+            </form>
         </div>
 
-        <div class="mb-3">
-            <label for="user_id" class="form-label">ID User</label>
-            <input type="text" class="form-control" id="user_id" name="user_id" required>
-        </div>
-
-        <!-- ...Tambahkan input form lainnya... -->
-
-        <button type="submit" class="btn btn-primary">Buat Pesanan</button>
-    </form>
-
-    <a href="{{ route('orders.index') }}" class="btn btn-secondary">Kembali ke Daftar Pesanan</a>
+    </div>
 @endsection

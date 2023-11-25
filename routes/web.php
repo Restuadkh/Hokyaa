@@ -5,7 +5,9 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PaymentController; 
+use App\Http\Controllers\PayController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +32,8 @@ Route::resource('users', UserController::class);
 Route::resource('events', EventController::class);
 Route::resource('bookings', BookingController::class);
 Route::resource('orders', OrderController::class);
+Route::resource('products', ProductController::class)->parameters([
+    'products' => 'product'
+]);
 Route::resource('payments', PaymentController::class);
+Route::resource('pays', PayController::class);
