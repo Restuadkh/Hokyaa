@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
     // Menampilkan semua events
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware(['auth', 'verified']);
+    // }
     public function index()
     {
         $events = Event::all();
@@ -32,6 +33,7 @@ class EventController extends Controller
             'event_description' => 'required',
             'event_date' => 'required|date',
             'event_time' => 'required',
+            'event_price' => 'required',
             'location' => 'required',
             'organizer' => 'required',
         ]);
@@ -64,11 +66,20 @@ class EventController extends Controller
             'event_description' => 'required',
             'event_date' => 'required|date',
             'event_time' => 'required',
+            'event_price' => 'required',
             'location' => 'required',
             'organizer' => 'required',
         ]);
+        $Event = Event::find($id);
+        try {
+            $order = Order::where('event_id', $id)->first();
+            $order->total_amount = ($order->total_amount - $Event->event_price) + $request->event_price;
+            $order->save();
+            $Event->update($request->all());
+        } catch (\Exception $e) {
+            $Event->update($request->all());
+        }
 
-        Event::find($id)->update($request->all());
 
         return redirect()->route('events.index')
             ->with('success', 'Event berhasil diperbarui.');

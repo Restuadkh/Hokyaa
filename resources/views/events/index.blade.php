@@ -20,6 +20,7 @@
                     <th>Event Description</th>
                     <th>Event Date</th>
                     <th>Event Time</th>
+                    <th>Price</th>
                     <th>Location</th>
                     <th>Organizer</th>
                     <th>Actions</th>
@@ -32,6 +33,7 @@
                         <td>{{ $event->event_description }}</td>
                         <td>{{ $event->event_date }}</td>
                         <td>{{ $event->event_time }}</td>
+                        <td>Rp.{{ $event->event_price }},-</td>
                         <td>{{ $event->location }}</td>
                         <td>{{ $event->organizer }}</td>
                         <td>

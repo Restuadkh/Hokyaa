@@ -16,9 +16,15 @@
                     <h5 class="card-title">Order #{{ $order->order_id }}</h5>
 
                     <div class="mb-3">
-                        <label for="order_id" class="form-label">Product and Events</label>
-                        <input type="text" class="form-control" id="order_id" name="order_id"
-                            value="{{ $order->product_id }}" readonly>
+                        <label for="order_id" class="form-label">Product</label>
+                        <input type="text" class="form-control" id="product_id" name="product_id"
+                            value="{{ $order->product->product_name }}" readonly>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="order_id" class="form-label">Events</label>
+                        <input type="text" class="form-control" id="event_id" name="event_id"
+                            value="{{ $order->event->event_name }}" readonly>
                     </div>
 
                     <div class="mb-3">
@@ -26,7 +32,7 @@
                         <input type="text" class="form-control" id="user_id" name="user_id"
                             value="{{ $order->user->name }}" readonly>
                     </div> 
-
+ 
                     <div class="mb-3">
                         <label for="user_id" class="form-label">Address</label>
                         <input type="text" class="form-control" id="user_id" name="user_id"

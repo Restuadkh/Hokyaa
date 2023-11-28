@@ -43,10 +43,10 @@
                     </select>
                 </div>  
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label for="user_id" class="form-label">Shipping Address</label>
                     <input type="text" class="form-control" id="shipping_address" name="shipping_address" required>
-                </div>
+                </div> --}}
                 <!-- ...Tambahkan input form lainnya... -->
 
                 <a href="{{ route('orders.index') }}" class="btn btn-secondary">Kembali ke Daftar Pesanan</a>

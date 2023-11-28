@@ -30,6 +30,11 @@
             </div>
 
             <div class="form-group">
+                <label for="location">Amount</label>
+                <input type="number" name="event_price" class="form-control" required>
+            </div>
+
+            <div class="form-group">
                 <label for="location">Location</label>
                 <input type="text" name="location" class="form-control" required>
             </div>

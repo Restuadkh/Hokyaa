@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
     public function index()
     {
 
@@ -25,8 +21,11 @@ class PaymentController extends Controller
 
     public function show($id)
     {
-        $order = Order::find($id);
-
+        $order = Order::find($id)
+            ->with('event')
+            ->with('product')
+            ->first();
+        // dd($order);
         // $payment = Payment::findOrFail($id);
         return view('payments.show', [
             // 'payment' => $payment,

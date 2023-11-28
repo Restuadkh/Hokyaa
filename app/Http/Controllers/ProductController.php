@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductPhoto;
 use Illuminate\Http\Request;
@@ -9,10 +10,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware(['auth', 'verified']);
+    // }
     public function index()
     {
         $products = Product::with('photos')->get();
@@ -94,12 +95,18 @@ class ProductController extends Controller
             'stock_quantity' => 'required|integer',
             'category' => 'required',
         ]);
-
-        // Cari produk berdasarkan ID
         $product = Product::findOrFail($id);
+        try {
+            // Cari produk berdasarkan ID
+            $order = Order::where('product_id', $id)->first();
+            $order->total_amount = ($order->total_amount - $product->price) + $request->price;
+            $order->save();
 
-        // Update data produk
-        $product->update($request->all());
+            // // Update data produk
+            $product->update($request->all());
+        } catch (\Exception $e) {
+            $product->update($request->all());
+        }
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
@@ -108,8 +115,8 @@ class ProductController extends Controller
         // Cari produk berdasarkan ID dan hapus
         $product = Product::where('product_id', $id)->with('photos')->first();
         foreach ($product->photos as $photo) {
-            Storage::delete('public/'.$photo->photo_path); 
-            $photo->delete(); 
+            Storage::delete('public/' . $photo->photo_path);
+            $photo->delete();
         }
         $product->delete();
 

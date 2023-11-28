@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware(['auth', 'verified']);
+    // }
     public function index()
     {
         $orders = Order::all();
@@ -27,7 +27,7 @@ class OrderController extends Controller
     {
         $payment_method = PaymentMethod::all();
         $order = Order::findOrFail($id);
-        return view('orders.show', ['order' => $order, 'payment_method'=> $payment_method]);
+        return view('orders.show', ['order' => $order, 'payment_method' => $payment_method]);
     }
 
     public function create()
@@ -35,12 +35,11 @@ class OrderController extends Controller
         // Tampilkan formulir pembuatan pesanan
         $events = Event::all();
         $products = Product::all();
-        return view('orders.create', [ 'events'=> $events, 'products'=> $products]);
+        return view('orders.create', ['events' => $events, 'products' => $products]);
     }
 
     public function store(Request $request)
     {
-        // dd( $request->all() );
         // Validasi input
         $request->validate([
             // Atur aturan validasi sesuai kebutuhan
@@ -48,22 +47,24 @@ class OrderController extends Controller
             // 'user_id' => 'required|exists:users,user_id', // Memastikan user_id ada dalam tabel users
             'event_id' => 'nullable|exists:events,event_id', // Memastikan event_id ada dalam tabel events jika diisi 
             // 'total_amount' => 'required|numeric|min:0', // Memastikan total_amount adalah angka positif
-            'shipping_address' => 'required|string|max:255', // Memastikan shipping_address adalah string dengan panjang maksimal 255 karakter
+            // 'shipping_address' => 'required|string|max:255', // Memastikan shipping_address adalah string dengan panjang maksimal 255 karakter
             // ...
         ]);
         // Simpan pesanan baru ke database
         $product = Product::findOrFail($request->product_id);
+        $event = Event::findOrFail($request->event_id);
         // dd($product);
+        $amount = $product->price + $event->event_price;
 
-        $order = New Order;
+        $order = new Order;
         $order->product_id = $request->product_id;
         $order->user_id = auth()->user()->user_id;
         $order->event_id = $request->event_id;
         $order->order_date = Carbon::parse(now()->format('Y-m-d H:i:s'));
-        $order->total_amount = $product->price;
+        $order->total_amount = $amount;
         $order->order_status = "Pending";
-        $order->shipping_address = $request->shipping_address;
-        $order->save(); 
+        $order->shipping_address = $event->location;
+        $order->save();
         // dd($order->save());
         // Redirect dengan pesan sukses
         return redirect()->route('orders.index')->with('success', 'Pesanan berhasil dibuat.');
@@ -71,10 +72,10 @@ class OrderController extends Controller
 
     public function edit($id)
     {
-        $order = Order::findOrFail($id); 
+        $order = Order::findOrFail($id);
         $events = Event::all();
         $products = Product::all();
-        return view('orders.edit', ['order' => $order,  'events'=> $events, 'products'=> $products]);
+        return view('orders.edit', ['order' => $order,  'events' => $events, 'products' => $products]);
     }
 
     public function update(Request $request, $id)

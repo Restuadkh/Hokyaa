@@ -15,12 +15,18 @@ class Event extends Model
         'event_description',
         'event_date',
         'event_time',
+        'event_price',
         'location',
         'organizer',
     ];
-    
+
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsTo(Booking::class);
     }
 }

@@ -31,6 +31,11 @@
             </div>
 
             <div class="form-group">
+                <label for="location">Amount</label>
+                <input type="number" name="event_price" class="form-control" value="{{ $event->event_price }}" required>
+            </div>
+
+            <div class="form-group">
                 <label for="location">Location</label>
                 <input type="text" name="location" value="{{ $event->location }}" class="form-control" required>
             </div>

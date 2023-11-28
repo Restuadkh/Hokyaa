@@ -10,13 +10,17 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet" href="{{ asset('css/datatables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-041e359a.css') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    
+    {{-- <link rel="stylesheet/scss" href="{{ asset('sass/app.scss')}}"> --}}
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
+    <script src="{{ asset('build/assets/app-39dcccdc.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/datatables/datatables.min.js') }}"></script>
 </head>
