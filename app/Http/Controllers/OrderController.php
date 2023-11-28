@@ -42,15 +42,15 @@ class OrderController extends Controller
         $request->validate([
             // Atur aturan validasi sesuai kebutuhan
             'product_id' => 'required|exists:products,product_id', // Memastikan product_id ada dalam tabel products
-            'user_id' => 'required|exists:users,user_id', // Memastikan user_id ada dalam tabel users
+            // 'user_id' => 'required|exists:users,user_id', // Memastikan user_id ada dalam tabel users
             'event_id' => 'nullable|exists:events,event_id', // Memastikan event_id ada dalam tabel events jika diisi 
-            'total_amount' => 'required|numeric|min:0', // Memastikan total_amount adalah angka positif
+            // 'total_amount' => 'required|numeric|min:0', // Memastikan total_amount adalah angka positif
             'shipping_address' => 'required|string|max:255', // Memastikan shipping_address adalah string dengan panjang maksimal 255 karakter
             // ...
         ]);
         // Simpan pesanan baru ke database
         $product = Product::findOrFail($request->product_id);
-        dd($product);
+        // dd($product);
 
         $order = New Order;
         $order->product_id = $request->product_id;
@@ -68,8 +68,10 @@ class OrderController extends Controller
 
     public function edit($id)
     {
-        $order = Order::findOrFail($id);
-        return view('orders.edit', ['order' => $order]);
+        $order = Order::findOrFail($id); 
+        $events = Event::all();
+        $products = Product::all();
+        return view('orders.edit', ['order' => $order,  'events'=> $events, 'products'=> $products]);
     }
 
     public function update(Request $request, $id)

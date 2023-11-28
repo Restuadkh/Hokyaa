@@ -4,9 +4,12 @@
 
 @section('content')
     <div class="container">
-        <div class="col">
-            <h1>Buat Pesanan Baru</h1>
-        </div>
+        
+        
+        <div class="col-md">
+            <h2>Buat Pesanan Baru</h2>
+        </div>   
+        
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -32,7 +35,7 @@
 
                 <div class="mb-3">
                     <label for="user_id" class="form-label">ID Events</label>
-                    <select class="form-select" id="product_id" name="product_id" required>
+                    <select class="form-select" id="event_id" name="event_id" required>
                         <option value="" selected disabled>Pilih Produk</option>
                         @foreach ($events as $event)
                             <option value="{{ $event->event_id }}">{{ $event->event_name }}</option>

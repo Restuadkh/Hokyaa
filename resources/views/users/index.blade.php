@@ -3,9 +3,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Manajemen Pengguna</h1>
-
+    <div class="container"> 
+        <div class="col-md">
+            <h2>Manajemen Pengguna</h2>
+        </div> 
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

@@ -2,9 +2,10 @@
 
 @extends('layouts.app')
 
-@section('content')
-    <h1>Tambah Pengguna Baru</h1>
-
+@section('content') 
+    <div class="col-md">
+        <h2>Tambah Pengguna Baru</h2>
+    </div> 
     <form action="{{ route('users.store') }}" method="POST">
         @csrf
 

@@ -7,6 +7,12 @@
         <div class="col-md">
             <h2>Event List</h2>
         </div>
+
+
+        <div id="events-container">
+            <!-- Data events akan ditampilkan di sini -->
+        </div>
+        <hr>
         <table id="Events" class="">
             <thead>
                 <tr>
@@ -44,7 +50,35 @@
         <a href="{{ route('events.create') }}" class="btn btn-success">Create</a>
 
         <script>
-            new DataTable("#Events");
+            $(document).ready(function() {  
+                new DataTable("#Events");
+                // $.ajax({
+                //     url: '/api/events',
+                //     type: 'GET',
+                //     dataType: 'json',
+                //     success: function(response) {
+                //         // Tampilkan data events dalam div events-container
+                //         var eventsArray = JSON.parse(JSON.stringify(response));
+                //         console.log(eventsArray);
+                //         new DataTable("#Events", {
+                //             ajax: eventsArray,
+                //         });
+                //     },
+                //     error: function(error) {
+                //         console.error('Error fetching events:', error);
+                //     }
+                // });
+
+                // function displayEvents(events) {
+                //     var eventsContainer = $('#events-container');
+                //     eventsContainer.empty(); // Bersihkan konten sebelum menambahkan yang baru
+
+                //     // Loop melalui setiap event dan tambahkan ke dalam div
+                //     $.each(events, function(index, event) {
+                //         eventsContainer.append('<p>' + event.event_name + '</p>');
+                //     });
+                // }
+            });
         </script>
     </div>
 @endsection

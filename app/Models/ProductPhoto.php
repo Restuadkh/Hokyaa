@@ -10,12 +10,9 @@ class ProductPhoto extends Model
     use HasFactory;
 
     protected $primaryKey = 'product_photos_id'; // Nama primary key
-    protected $fillable = ['photo_path', 'product_id'];
-
-    public function setFilenamesAttribute($value)
-    {
-        $this->attributes['photo_path'] = json_encode($value);
-    }
+    protected $fillable = [
+        'photo_path'
+    ]; 
 
     public function product()
     {

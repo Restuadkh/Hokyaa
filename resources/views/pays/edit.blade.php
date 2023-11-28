@@ -3,8 +3,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h2>Edit Pay</h2>
+    <div class="container"> 
+        <div class="col-md">
+            <h2>Edit Pay</h2>
+        </div> 
         <form action="{{ route('pays.update', $pay->pay_id) }}" method="POST">
             @csrf
             @method('PUT')

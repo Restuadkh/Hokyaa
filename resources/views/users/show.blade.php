@@ -2,9 +2,10 @@
 
 @extends('layouts.app')
 
-@section('content')
-    <h1>Detail Pengguna</h1>
-
+@section('content') 
+    <div class="col-md">
+        <h2>Detail Pengguna</h2>
+    </div> 
     <div>
         <strong>ID:</strong> {{ $user->user_id }}<br>
         <strong>Nama:</strong> {{ $user->name }}<br>

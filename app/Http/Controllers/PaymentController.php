@@ -8,12 +8,17 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
     public function index()
-    { 
-        if(auth()->user()->is_admin){
-            $payments = Payment::all();  
-        }else{
-            $payments = Payment::where('user_id','=',auth()->user()->user_id);  
+    {
+
+        if (auth()->user()->is_admin) {
+            $payments = Payment::all();
+        } else {
+            $payments = Payment::where('user_id', '=', auth()->user()->user_id);
         }
         return view('payments.index', ['payments' => $payments]);
     }

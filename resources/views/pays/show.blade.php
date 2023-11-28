@@ -3,8 +3,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h2>Detail Pay</h2>
+    <div class="container"> 
+        <div class="col-md">
+            <h2>Detail Pay</h2>
+        </div> 
         <ul>
             <li><strong>ID:</strong> {{ $pay->pay_id }}</li>
             <li><strong>Biaya:</strong> {{ $pay->biaya }}</li>

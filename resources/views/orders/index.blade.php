@@ -4,7 +4,10 @@
 
 @section('content')
     <div class="container">
-        <h1>Daftar Pesanan</h1>
+        
+        <div class="col-md">
+            <h2>Daftar Pesanan</h2>
+        </div> 
 
         @if (session('success'))
             <div class="alert alert-success">
@@ -32,7 +35,7 @@
                         <td>{{ $order->total_amount }}</td>
                         <td>{{ $order->order_status }}</td>
                         <td>
-                            <a href="{{ route('orders.show', $order->order_id) }}" class="btn btn-success">Bayar</a> 
+                            <a href="{{ route('orders.show', $order->order_id) }}" class="btn btn-success">Bayar</a>
                             <a href="{{ route('orders.edit', $order->order_id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('orders.destroy', $order->order_id) }}" method="POST"
                                 style="display:inline">
@@ -48,7 +51,9 @@
         </table>
         <a href="{{ route('orders.create') }}" class="btn btn-success">Buat Pesanan Baru</a>
         <script>
-            new DataTable('#Orders');
+            $(document).ready(function() {
+                new DataTable('#Orders');  
+            });
         </script>
     </div>
 @endsection

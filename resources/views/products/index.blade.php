@@ -2,13 +2,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Product List</h1>
-        <a href="{{ route('products.create') }}" class="btn btn-primary">Create Product</a>
-        <table class="table mt-3">
+    <div class="container"> 
+        <div class="col-md">
+            <h2>Product List</h2>
+        </div> 
+        <table id="product" class="table mt-3">
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Picture</th> 
                     <th>Name</th>
                     <th>Description</th>
                     <th>Price</th>
@@ -21,8 +23,9 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $index = 0;?>
                 @forelse ($products as $product)
-                    <tr>
+                    <tr> 
                         <td>{{ $product->product_id }}</td>
                         <td> 
                             @foreach ($product->photos as $photo)
@@ -37,7 +40,7 @@
                         <td>{{ $product->category }}</td>
                         <td>{{ $product->created_at }}</td>
                         <td>{{ $product->updated_at }}</td>
-                        <td>
+                        <td >
                             <a href="{{ route('products.edit', $product->product_id) }}" class="btn btn-info btn-sm">Edit</a>
                             <form action="{{ route('products.destroy', $product->product_id) }}" method="post"
                                 class="d-inline">
@@ -55,5 +58,9 @@
                 @endforelse
             </tbody>
         </table>
+        <a href="{{ route('products.create') }}" class="btn btn-success">Create Product</a> 
+        <script>
+            new DataTable("#product");
+        </script>
     </div>
 @endsection

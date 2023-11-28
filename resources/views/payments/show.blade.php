@@ -2,9 +2,10 @@
 
 @extends('layouts.app')
 
-@section('content')
-    <h1>Detail Pembayaran</h1>
-
+@section('content') 
+    <div class="col-md">
+        <h2>Detail Pembayaran</h2>
+    </div> 
     <div>
         <strong>ID:</strong> {{ $payment->payment_id }}<br>
         <strong>ID Pesanan:</strong> {{ $payment->order_id }}<br>

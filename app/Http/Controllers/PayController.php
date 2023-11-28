@@ -6,6 +6,8 @@ use App\Models\Pay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Whoops\Run;
+
 class PayController extends Controller
 {
     public function index()
@@ -54,6 +56,20 @@ class PayController extends Controller
 
         return redirect()->route('pays.index')->with('success', 'Data Pay berhasil ditambahkan.');
     }
+
+    public function callback(Request $request){ 
+        
+        $status = $request->status;
+        $external_id = $request->external_id;
+
+        $Pay = Pay::where('pay_link', $external_id)->update([
+            'status'=> $status
+        ]);
+
+        return response()->json([$Pay]);
+    }
+
+
 
     public function show($id)
     {

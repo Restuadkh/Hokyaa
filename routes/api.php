@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\EventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,7 @@ Route::post('/login', [UserController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () { 
     Route::get('/profile', [UserController::class, 'profile']);
     Route::post('/logout', [UserController::class, 'logout']);
+
+    Route::resource('events', EventController::class);
 });
+ 

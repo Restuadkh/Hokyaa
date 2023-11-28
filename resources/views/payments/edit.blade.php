@@ -3,8 +3,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Edit Pembayaran</h1>
-
+    <div class="col-md">
+        <h2>Edit Pembayaran</h2>
+    </div> 
     <form action="{{ route('payments.update', $payment->payment_id) }}" method="POST">
         @csrf
         @method('PUT')

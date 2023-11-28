@@ -4,7 +4,9 @@
 
 @section('content')
     <div class="container">
-        <h2>Tambah Pay</h2>
+        <div class="col-md">
+            <h2>Tambah Pay</h2>
+        </div> 
         <form action="{{ route('pays.store') }}" method="POST">
             @csrf
             <div class="form-group">

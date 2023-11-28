@@ -4,7 +4,9 @@
 
 @section('content')
     <div class="container">
-        <h2>Data Pays</h2>
+        <div class="col-md">
+            <h2>Data Pays</h2>
+        </div>
         <a href="{{ route('pays.create') }}" class="btn btn-primary">Tambah Pay</a>
         <table class="table mt-3">
             <thead>
@@ -18,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($pays as $pay)
+                @foreach ($pays as $pay)
                     <tr>
                         <td>{{ $pay->pay_id }}</td>
                         <td>{{ $pay->biaya }}</td>
@@ -31,7 +33,8 @@
                             <form action="{{ route('pays.destroy', $pay->pay_id) }}" method="POST" style="display:inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
                             </form>
                         </td>
                     </tr>

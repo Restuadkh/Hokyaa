@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
     public function index()
     {
         $products = Product::with('photos')->get();
@@ -44,18 +48,19 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create($request->all());
-        
-        $filename = []; 
+
+        $filename = [];
         if ($request->hasfile('photos')) {
             foreach ($request->file('photos') as $photo) {
                 $filename = time() . '_' . $photo->getClientOriginalName();
-                $photo->storeAs('public/product_photos', $filename); 
-                $product->photos()->create([ 
-                    'photo_path' => 'storage/product_photos/' . $filename
+                $photo->storeAs('public/product_photos', $filename);
+                $product->photos()->create([
+                    'photo_path' => 'storage/product_photos/' . $filename,
+                    'product_id' => $product->product_id,
                 ]);
             }
         }
-        
+
         // dd($product);
         return redirect()->route('products.index')
             ->with('success', 'Product created successfully.');

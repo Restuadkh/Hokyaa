@@ -3,8 +3,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Create Product</h1>
+    <div class="container"> 
+        <div class="col-md">
+            <h2>Create Product</h2>
+        </div> 
         <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">

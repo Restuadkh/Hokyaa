@@ -3,9 +3,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Buat Pembayaran Baru</h1>
-
+    <div class="container"> 
+        <div class="col-md">
+            <h2>Buat Pembayaran Baru</h2>
+        </div> 
         <form action="{{ route('payments.store') }}" method="POST">
             @csrf
 

@@ -4,8 +4,9 @@
 
 @section('content')
     <div class="container">
-        <h1>Daftar Pembayaran</h1>
-
+        <div class="col-md">
+            <h2>Daftar Pembayaran</h2>
+        </div> 
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +28,15 @@ Route::get('/', function () {
 Auth::routes(); 
 Auth::routes(['verify' => true]);
 
+Route::get('/auth/redirect', [LoginController::class,'redirectToProvider']);
+Route::get('/auth/callback', [LoginController::class,'handleProviderCallback']);
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');   
 Route::resource('users', UserController::class);
 Route::resource('events', EventController::class);
 Route::resource('bookings', BookingController::class);
 Route::resource('orders', OrderController::class);
-Route::resource('products', ProductController::class)->parameters([
-    'products' => 'product'
-]);
+Route::resource('products', ProductController::class);
 Route::resource('payments', PaymentController::class);
 Route::resource('pays', PayController::class);
+Route::post('/pays/callback', [PayController::class, 'callback']);
