@@ -33,8 +33,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('last_login');
-        });
     }
 };

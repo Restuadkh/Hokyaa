@@ -14,8 +14,8 @@
                 <input type="text" class="form-control" id="biaya" name="biaya" required>
             </div>
             <div class="form-group">
-                <label for="deskripsi">Deskripsi:</label>
-                <input type="text" class="form-control" id="deskripsi" name="deskripsi" required>
+                <label for="descripsi">descripsi:</label>
+                <input type="text" class="form-control" id="descripsi" name="descripsi" required>
             </div> 
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>

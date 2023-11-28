@@ -10,7 +10,7 @@ class PaymentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(['auth', 'verified']);
     }
     public function index()
     {
@@ -25,8 +25,13 @@ class PaymentController extends Controller
 
     public function show($id)
     {
-        $payment = Payment::findOrFail($id);
-        return view('payments.show', ['payment' => $payment]);
+        $order = Order::find($id);
+
+        // $payment = Payment::findOrFail($id);
+        return view('payments.show', [
+            // 'payment' => $payment,
+            'order' => $order
+        ]);
     }
 
     public function create()

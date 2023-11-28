@@ -13,8 +13,10 @@ class Pay extends Model
 
     protected $fillable = [ 
         'biaya',
-        'deskripsi',
+        'external_id',
+        'description',
         'status', 
         'pay_link', 
+        'expiry_date', 
     ];
 }

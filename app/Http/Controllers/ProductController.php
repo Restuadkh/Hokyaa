@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductPhoto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -55,7 +56,7 @@ class ProductController extends Controller
                 $filename = time() . '_' . $photo->getClientOriginalName();
                 $photo->storeAs('public/product_photos', $filename);
                 $product->photos()->create([
-                    'photo_path' => 'storage/product_photos/' . $filename,
+                    'photo_path' => 'product_photos/' . $filename,
                     'product_id' => $product->product_id,
                 ]);
             }
@@ -105,7 +106,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         // Cari produk berdasarkan ID dan hapus
-        $product = Product::findOrFail($id);
+        $product = Product::where('product_id', $id)->with('photos')->first();
+        foreach ($product->photos as $photo) {
+            Storage::delete('public/'.$photo->photo_path); 
+            $photo->delete(); 
+        }
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');

@@ -56,6 +56,9 @@
                         <li class="nav-item {{ Request::is('users*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                         </li>
+                        <li class="nav-item {{ Request::is('Pays*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('pays.index') }}">Pays</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

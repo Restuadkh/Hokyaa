@@ -17,10 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('event_id')->nullable();
             $table->unsignedBigInteger('booking_id')->nullable();
+            $table->unsignedBigInteger('payment_method_id'); 
             $table->timestamp('payment_date');
             $table->decimal('payment_amount', 10, 2);
             $table->string('payment_status');
-            $table->string('payment_method'); 
             $table->string('transfer_path')->nullable();
             $table->string('transaction_id');
             $table->timestamps();

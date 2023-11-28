@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pay;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
@@ -23,50 +24,54 @@ class PayController extends Controller
 
     public function store(Request $request)
     {
-        $secret_key = 'Basic '.config('xendit.key_auth');
-        $external_id = Str::random(10);
-        
+        $length = 10;
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = substr(str_shuffle($characters), 0, $length);
+        $secret_key = 'Basic ' . config('xendit.key_auth');
+        $external_id = 'Invoice_' . $randomString;
+
+        $amount = $request->biaya;
+        $descripsi = $request->descripsi;
+
         $data_request = Http::withHeaders([
             'Authorization' => $secret_key
         ])->post('https://api.xendit.co/v2/invoices', [
             'external_id' => $external_id,
-            'amount' => request('biaya'),
-            'payment_methods' => [
-                'BCA', 'QRIS'
-            ]
+            'amount' => $amount,
+            // 'payment_methods' => [
+            //     'BCA', 'QRIS'
+            // ]
         ]);
 
         $response = $data_request->object();
-
-        $request->validate([
-            'biaya' => 'required|integer',
-            'deskripsi' => 'required|string',
-            'status' => 'string',
-            'pay_link' => 'string',
-        ]);
-
-        Pay::create([
-            'biaya' => request('biaya'),
-            'deskripsi' => $external_id,
+        // dd($response);
+        $expirydate = Carbon::parse($response->expiry_date);
+        $expiry_date = $expirydate->format('Y-m-d H:i:s');
+        $pay = Pay::create([
+            'biaya' => $amount,
+            'external_id' => $response->external_id,
+            'description' => $descripsi,
             'status' => $response->status,
             'pay_link' => $response->invoice_url,
+            'expiry_date' => $expiry_date,
         ]);
-
-        // Pay::create($request->all());
 
         return redirect()->route('pays.index')->with('success', 'Data Pay berhasil ditambahkan.');
     }
 
-    public function callback(Request $request){ 
-        
+    public function callback(Request $request)
+    {
+
+        $data = $request->all();
         $status = $request->status;
         $external_id = $request->external_id;
 
-        $Pay = Pay::where('pay_link', $external_id)->update([
-            'status'=> $status
+        $Pay = Pay::where('external_id', $external_id)->update([
+            'status' => $status
         ]);
 
-        return response()->json([$Pay]);
+
+        return response()->json($Pay);
     }
 
 
@@ -102,7 +107,7 @@ class PayController extends Controller
     {
         $pay = Pay::findOrFail($id);
         $pay->delete();
-
+        
         return redirect()->route('pays.index')->with('success', 'Data Pay berhasil dihapus.');
     }
 }

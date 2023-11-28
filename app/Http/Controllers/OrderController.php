@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Event;
 use App\Models\Order;
+use App\Models\Payment;
+use App\Models\PaymentMethod;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -23,8 +25,9 @@ class OrderController extends Controller
 
     public function show($id)
     {
+        $payment_method = PaymentMethod::all();
         $order = Order::findOrFail($id);
-        return view('orders.show', ['order' => $order]);
+        return view('orders.show', ['order' => $order, 'payment_method'=> $payment_method]);
     }
 
     public function create()

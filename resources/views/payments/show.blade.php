@@ -2,21 +2,56 @@
 
 @extends('layouts.app')
 
-@section('content') 
-    <div class="col-md">
-        <h2>Detail Pembayaran</h2>
-    </div> 
-    <div>
-        <strong>ID:</strong> {{ $payment->payment_id }}<br>
-        <strong>ID Pesanan:</strong> {{ $payment->order_id }}<br>
-        <strong>ID User:</strong> {{ $payment->user_id }}<br>
-        <strong>Tanggal Pembayaran:</strong> {{ $payment->payment_date }}<br>
-        <strong>Jumlah Pembayaran:</strong> {{ $payment->payment_amount }}<br>
-        <strong>Status Pembayaran:</strong> {{ $payment->payment_status }}<br>
-        <strong>Metode Pembayaran:</strong> {{ $payment->payment_method }}<br>
-        <strong>ID Transaksi:</strong> {{ $payment->transaction_id }}<br>
-        <!-- Tambahkan atribut pembayaran lainnya sesuai kebutuhan -->
-    </div>
+@section('content')
+    <div class="container">
+        <div class="col-md">
+            <h2>Detail Pembayaran</h2>
+        </div>
+        
+        <div class="card ">
+            <i class="fas fa-caret-square-left"></i>
+            <div class="card-body">
+                <form action="{{ route('payments.store') }}" method="POST">
 
-    <a href="{{ route('payments.index') }}" class="btn btn-primary">Kembali ke Daftar Pembayaran</a>
+                    <h5 class="card-title">Order #{{ $order->order_id }}</h5>
+
+                    <div class="mb-3">
+                        <label for="order_id" class="form-label">Product and Events</label>
+                        <input type="text" class="form-control" id="order_id" name="order_id"
+                            value="{{ $order->product_id }}" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">User</label>
+                        <input type="text" class="form-control" id="user_id" name="user_id"
+                            value="{{ $order->user->name }}" readonly>
+                    </div> 
+
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="user_id" name="user_id"
+                            value="{{ $order->shipping_address }}" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">Total Pembayaran</label>
+                        <input type="text" class="form-control" id="user_id" name="user_id"
+                            value="Rp.{{ $order->total_amount }},-" readonly>
+                    </div>
+                    
+                    <div class="col-sm m-1">
+                        <button type="submit" class="btn btn-primary">Bayar Sekarang</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="card-footer contrainer">
+                <div class="col-sm m-1">
+                    <a href="{{ route('payments.index') }}" class="btn btn-primary">Kembali ke Daftar Pembayaran</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 @endsection

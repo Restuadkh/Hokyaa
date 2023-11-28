@@ -9,7 +9,7 @@
         </div> 
         <form action="{{ route('payments.store') }}" method="POST">
             @csrf
-
+            
             <!-- Tambahkan input form sesuai dengan atribut yang diperlukan -->
             <div class="mb-3">
                 <label for="order_id" class="form-label">ID Pesanan</label>

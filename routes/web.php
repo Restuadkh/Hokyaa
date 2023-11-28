@@ -9,6 +9,7 @@ use App\Http\Controllers\PayController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PaymentMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +39,6 @@ Route::resource('bookings', BookingController::class);
 Route::resource('orders', OrderController::class);
 Route::resource('products', ProductController::class);
 Route::resource('payments', PaymentController::class);
+Route::resource('payment_methods', PaymentMethodController::class);
 Route::resource('pays', PayController::class);
 Route::post('/pays/callback', [PayController::class, 'callback']);

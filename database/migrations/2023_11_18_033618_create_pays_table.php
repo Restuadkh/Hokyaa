@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('pays', function (Blueprint $table) {
             $table->id('pay_id');
             $table->integer('biaya');
-            $table->string('deskripsi');
+            $table->string('external_id');
+            $table->string('description');
             $table->string('status');
             $table->string('pay_link');
+            $table->timestamp('expiry_date');
             $table->timestamps();
         });
     }

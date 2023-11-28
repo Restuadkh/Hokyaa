@@ -35,7 +35,7 @@
                         <td>{{ $order->total_amount }}</td>
                         <td>{{ $order->order_status }}</td>
                         <td>
-                            <a href="{{ route('orders.show', $order->order_id) }}" class="btn btn-success">Bayar</a>
+                            <a href="{{ route('payments.show', $order->order_id) }}" class="btn btn-success">Bayar</a>
                             <a href="{{ route('orders.edit', $order->order_id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('orders.destroy', $order->order_id) }}" method="POST"
                                 style="display:inline">

@@ -8,14 +8,14 @@
             <h2>Data Pays</h2>
         </div>
         <a href="{{ route('pays.create') }}" class="btn btn-primary">Tambah Pay</a>
-        <table class="table mt-3">
+        <table id="Pays" class="table mt-3">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Biaya</th>
-                    <th>Deskripsi</th>
+                    <th>Kode</th>
+                    <th>Deskripsi</th> 
                     <th>Status</th>
-                    <th>Pay Link</th>
+                    <th>Biaya</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -23,11 +23,18 @@
                 @foreach ($pays as $pay)
                     <tr>
                         <td>{{ $pay->pay_id }}</td>
-                        <td>{{ $pay->biaya }}</td>
-                        <td>{{ $pay->deskripsi }}</td>
-                        <td>{{ $pay->status }}</td>
-                        <td>{{ $pay->pay_link }}</td>
+                        <td>{{ $pay->external_id }}</td>
+                        <td>{{ $pay->description }}</td>
+                        <td class="text-center">
+                            @if($pay->status == "PENDING")
+                            <div class="bg-warning rounded ">{{ $pay->status }}</div>
+                            @else
+                            <div class="bg-success rounded text-white">{{ $pay->status }}</div>
+                            @endif
+                        </td>
+                        <td>Rp.{{ $pay->biaya }},-</td>
                         <td>
+                            <a href="{{ $pay->pay_link }}" class="btn btn-success">Bayar</a>
                             <a href="{{ route('pays.show', $pay->pay_id) }}" class="btn btn-info">Lihat</a>
                             <a href="{{ route('pays.edit', $pay->pay_id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('pays.destroy', $pay->pay_id) }}" method="POST" style="display:inline">
@@ -41,5 +48,8 @@
                 @endforeach
             </tbody>
         </table>
+        <script>
+            new DataTable("#Pays");
+        </script>
     </div>
 @endsection
