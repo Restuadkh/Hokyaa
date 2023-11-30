@@ -12,6 +12,8 @@ class Pay extends Model
     protected $primaryKey = 'pay_id';
 
     protected $fillable = [ 
+        'user_id',
+        'order_id',
         'biaya',
         'external_id',
         'description',
@@ -19,4 +21,8 @@ class Pay extends Model
         'pay_link', 
         'expiry_date', 
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id');
             $table->timestamp('booking_date');
             $table->integer('number_of_tickets');
-            $table->decimal('total_price', 8, 2);
+            $table->unsignedBigInteger('total_price');
             $table->string('payment_status');
             $table->timestamps(); // Ini akan membuat kolom created_at dan updated_at
 

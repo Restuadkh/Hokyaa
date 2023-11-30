@@ -32,8 +32,14 @@
                         <td>{{ $order->order_id }}</td>
                         <td>{{ $order->user->name }}</td>
                         <td>{{ $order->order_date }}</td>
-                        <td>{{ $order->total_amount }}</td>
-                        <td>{{ $order->order_status }}</td>
+                        <td>{{ $order->total_amount }}</td> 
+                        <td class="text-center">
+                            @if ($order->order_status == 'PENDING')
+                                <div class="bg-warning p-2">{{ $order->order_status }}</div>
+                            @else
+                                <div class="bg-success text-white  p-2">{{ $order->order_status }}</div>
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ route('payments.show', $order->order_id) }}" class="btn btn-success">Bayar</a>
                             <a href="{{ route('orders.edit', $order->order_id) }}" class="btn btn-warning">Edit</a>

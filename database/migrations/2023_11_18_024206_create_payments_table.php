@@ -19,10 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('booking_id')->nullable();
             $table->unsignedBigInteger('payment_method_id'); 
             $table->timestamp('payment_date');
-            $table->decimal('payment_amount', 10, 2);
+            $table->unsignedBigInteger('payment_amount');
             $table->string('payment_status');
             $table->string('transfer_path')->nullable();
-            $table->string('transaction_id');
+            // $table->string('transaction_id');
             $table->timestamps();
 
             // Definisi kunci asing

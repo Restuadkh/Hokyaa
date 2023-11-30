@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('event_description');
             $table->date('event_date');
             $table->time('event_time');
-            $table->decimal('event_price', 10, 2);
+            $table->unsignedBigInteger('event_price');
             $table->string('location');
             $table->string('organizer');
             $table->timestamps();

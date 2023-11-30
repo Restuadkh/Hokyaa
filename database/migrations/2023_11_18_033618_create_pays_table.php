@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('pays', function (Blueprint $table) {
             $table->id('pay_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('order_id');
             $table->integer('biaya');
             $table->string('external_id');
             $table->string('description');
@@ -20,7 +22,11 @@ return new class extends Migration
             $table->string('pay_link');
             $table->timestamp('expiry_date');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('order_id')->references('order_id')->on('orders')->onDelete('cascade');
         });
+        
     }
 
     /**

@@ -13,12 +13,12 @@ class Payment extends Model
         'order_id',
         'user_id',
         'event_id',
-        'booking_id',
+        'payment_method_id',
         'payment_date',
         'payment_amount',
         'payment_status',
         'payment_method',
-        'transaction_id',
+        // 'transaction_id',
     ];
 
     public function order()

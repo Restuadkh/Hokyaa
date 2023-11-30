@@ -55,10 +55,10 @@ class LoginController extends Controller
             //jika user tidak ada maka simpan ke database
             //$user_google menyimpan data google account seperti email, foto, dsb
             if ($user != null) {
-                \auth()->login($user, true);
+                auth()->login($user, true);
                 $user->last_login = now();
                 $user->save();
-                return redirect()->route('home');
+                return redirect()->route('login');
             } else {
                 $create = User::Create([ 
                     'email'             => $user_google->getEmail(),
@@ -67,8 +67,8 @@ class LoginController extends Controller
                     'email_verified_at' => now(),
                     'last_login' => now(),
                 ]);
-                \auth()->login($create, true);
-                return redirect()->route('home');
+                auth()->login($create, true);
+                return redirect()->route('login');
             }
         } catch (\Exception $e) {
             return redirect()->route('login');

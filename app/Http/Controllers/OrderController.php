@@ -62,7 +62,7 @@ class OrderController extends Controller
         $order->event_id = $request->event_id;
         $order->order_date = Carbon::parse(now()->format('Y-m-d H:i:s'));
         $order->total_amount = $amount;
-        $order->order_status = "Pending";
+        $order->order_status = "PENDING";
         $order->shipping_address = $event->location;
         $order->save();
         // dd($order->save());

@@ -14,7 +14,7 @@ class PaymentController extends Controller
         if (auth()->user()->is_admin) {
             $payments = Payment::all();
         } else {
-            $payments = Payment::where('user_id', '=', auth()->user()->user_id);
+            $payments = Payment::where('user_id', auth()->user()->user_id)->get();
         }
         return view('payments.index', ['payments' => $payments]);
     }
@@ -41,27 +41,60 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-        $order = Order::findorFail();
+
+        $length = 10;
+        $characters = '0123456789';
+        $random = substr(str_shuffle($characters), 0, $length);
+    
+        $order = Order::findorFail($request->order_id);
+        $payment = Payment::where($order->order_id);
+        if(!$payment){
         // Validasi input
         $request->validate([
-            // Atur aturan validasi sesuai kebutuhan
-            'order_id' => 'required',
-            'user_id' => 'required',
-            'event_id' => 'nullable',
-            'booking_id' => 'nullable',
-            'payment_date' => 'required',
-            'payment_amount' => 'required',
-            'payment_status' => 'required',
-            'payment_method' => 'required',
-            'transaction_id' => 'required',
+            // Atur aturan validasi sesuai kebutuhan            
+            // 'order_id' => 'required|exists:orders,order_id',
+            // 'user_id' => 'required|exists:users,user_id',
+            // 'event_id' => 'nullable|exists:events,event_id',
+            // 'booking_id' => 'nullable|exists:bookings,id',
+            // 'payment_method_id' => 'required|exists:payment_methods,id',
+            // 'payment_date' => 'required|date',
+            // 'payment_amount' => 'required|numeric|min:0.01',
+            // 'payment_status' => 'required|string',
+            // 'transfer_path' => 'nullable|string',
+            // 'transaction_id' => 'required|string',
             // ...
         ]);
-
-        // Simpan pembayaran baru ke database
-        Payment::create($request->all());
-
+        try {
+            $payment = Payment::create([
+                'order_id' => $order->order_id,
+                'user_id' => $order->user_id,
+                'event_id' => $order->event_id,
+                'payment_method_id' => 1,
+                'payment_date' => $order->order_date,
+                'payment_amount' => $order->total_amount,
+                'payment_status' => $order->order_status,
+                // 'transfer_path' => $request->transfer_path,
+                // 'transaction_id' => $request->transaction_id,
+            ]);
+            try {
+                $pays = new PayController();
+                $pay = $pays->store($request);
+                // dd($pay->getTargetUrl());
+                return redirect($pay->getTargetUrl());
+                // return redirect()->route('payments.show', $request->order_id)->with('success', 'Pembayaran berhasil dibuat.');
+            } catch (\Exception $e) {
+                $payment->delete();
+                return redirect()->route('payments.show', $request->order_id)->with('error', 'Pembayaran gagal dibuat.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('payments.show', $request->order_id)->with('error', 'Pembayaran gagal dibuat.');
+        }
+        }else{
+            return redirect()->route('payments.show', $request->order_id)->with('error', 'Pembayaran gagal dibuat.');
+        }
+        // Simpan pembayaran baru ke database 
         // Redirect dengan pesan sukses
-        return redirect()->route('payments.index')->with('success', 'Pembayaran berhasil dibuat.');
+        // return redirect()->route('payments.index')->with('success', 'Pembayaran berhasil dibuat.');
     }
 
     public function edit($id)

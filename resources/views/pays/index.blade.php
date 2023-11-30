@@ -12,8 +12,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Kode</th>
-                    <th>Deskripsi</th> 
+                    <th>User</th>
+                    <th>Deskripsi</th>
                     <th>Status</th>
                     <th>Biaya</th>
                     <th>Aksi</th>
@@ -26,23 +26,26 @@
                         <td>{{ $pay->external_id }}</td>
                         <td>{{ $pay->description }}</td>
                         <td class="text-center">
-                            @if($pay->status == "PENDING")
-                            <div class="bg-warning rounded ">{{ $pay->status }}</div>
+                            @if ($pay->status == 'PENDING')
+                                <div class="bg-warning rounded p-2">{{ $pay->status }}</div>
                             @else
-                            <div class="bg-success rounded text-white">{{ $pay->status }}</div>
+                                <div class="bg-success rounded text-white  p-2">{{ $pay->status }}</div>
                             @endif
                         </td>
                         <td>Rp.{{ $pay->biaya }},-</td>
                         <td>
-                            <a href="{{ $pay->pay_link }}" class="btn btn-success">Bayar</a>
+                            @if ($pay->status == 'PENDING')
+                                <a href="{{ $pay->pay_link }}" class="btn btn-success">Bayar</a>
+                            @else
+                            @endif
                             <a href="{{ route('pays.show', $pay->pay_id) }}" class="btn btn-info">Lihat</a>
-                            <a href="{{ route('pays.edit', $pay->pay_id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('pays.destroy', $pay->pay_id) }}" method="POST" style="display:inline">
+                            {{-- <a href="{{ route('pays.edit', $pay->pay_id) }}" class="btn btn-warning">Edit</a> --}}
+                            {{-- <form action="{{ route('pays.destroy', $pay->pay_id) }}" method="POST" style="display:inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger"
                                     onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                            </form>
+                            </form> --}}
                         </td>
                     </tr>
                 @endforeach

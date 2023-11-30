@@ -22,8 +22,7 @@
                     <th>Tanggal Pembayaran</th>
                     <th>Jumlah Pembayaran</th>
                     <th>Status Pembayaran</th>
-                    <th>Metode Pembayaran</th>
-                    <th>ID Transaksi</th>
+                    <th>Metode Pembayaran</th> 
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -36,10 +35,8 @@
                         <td>{{ $payment->payment_date }}</td>
                         <td>{{ $payment->payment_amount }}</td>
                         <td>{{ $payment->payment_status }}</td>
-                        <td>{{ $payment->payment_method }}</td>
-                        <td>{{ $payment->transaction_id }}</td>
-                        <td>
-                            <a href="{{ route('payments.show', $payment->payment_id) }}" class="btn btn-info">Lihat</a>
+                        <td>{{ $payment->payment_method->name }}</td> 
+                        <td> 
                             <a href="{{ route('payments.edit', $payment->payment_id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('payments.destroy', $payment->payment_id) }}" method="POST"
                                 style="display:inline">
