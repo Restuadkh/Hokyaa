@@ -43,11 +43,15 @@ AWS_DEFAULT_REGION=us-east-1
 AWS_BUCKET=
 AWS_USE_PATH_STYLE_ENDPOINT=false
 
-SECRET_KEY_XENDIT=xnd_development_4lEoigmOaEKD7Ry3ZaLZ7JQE9SgIrdycU9kszQKwVKW1I3fQtLiFxYmlKBMhr
+SECRET_KEY_XENDIT=xnd_development_oKurDNyShOpRfHlzwfBQCDqNNY6FTqeDX4YAwiCUiv9lsUnFBj70hiyIzyWeO
 
-GOOGLE_CLIENT_ID=150376516600-dpacdjb9pdr0fp6liom8ok78svep8a60.apps.googleusercontent.com
-GOOGLE_APP_SECRET=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
-GOOGLE_REDIRECT=http://127.0.0.1:8000/auth/callback
+# GOOGLE_CLIENT_ID=150376516600-dpacdjb9pdr0fp6liom8ok78svep8a60.apps.googleusercontent.com
+# GOOGLE_APP_SECRET=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
+# GOOGLE_REDIRECT=http://127.0.0.1:8000/auth/callback
+
+GOOGLE_CLIENT_ID=150376516600-jogkdjpmlksea5k5sr54guvi20ebupnc.apps.googleusercontent.com
+GOOGLE_APP_SECRET=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
+GOOGLE_REDIRECT=http://127.0.0.1:80/auth/callback
 
 PUSHER_APP_ID=
 PUSHER_APP_KEY=
