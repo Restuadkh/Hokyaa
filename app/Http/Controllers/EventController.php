@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Event;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -29,6 +29,7 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            // 'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'event_name' => 'required',
             'event_description' => 'required',
             'event_date' => 'required|date',
@@ -37,11 +38,31 @@ class EventController extends Controller
             'location' => 'required',
             'organizer' => 'required',
         ]);
+        Alert::success('Berhasil', 'Data berhasil disimpan!');
+        // dd($request->all());
 
-        Event::create($request->all());
+        try {
+            $event = Event::create($request->all());
 
-        return redirect()->route('events.index')
-            ->with('success', 'Event berhasil ditambahkan.');
+            $filename = [];
+            if ($request->hasfile('photos')) {
+                foreach ($request->file('photos') as $photo) {
+                    $filename = time() . '_' . $photo->getClientOriginalName();
+                    $photo->storeAs('public/event_photos', $filename);
+                    $event->photos()->create([
+                        'photo_path' => 'event_photos/' . $filename,
+                        'event_id' => $event->event_id,
+                    ]);
+                }
+            }else{
+                $event->delete();
+                return redirect()->route('events.create', $request->order_id)->with('error', 'Event gagal dibuat!');
+            }
+            return redirect()->route('events.index')
+                ->with('success', 'Event berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->route('events.create', $request->order_id)->with('error', 'Event gagal dibuat!');
+        }
     }
 
     // Menampilkan detail event

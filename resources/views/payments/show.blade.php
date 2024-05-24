@@ -14,6 +14,7 @@
                 {{ session('success') }}
             </div>
         @endif
+        
         <div class="col-md">
             <h2>Detail Pembayaran</h2>
         </div>

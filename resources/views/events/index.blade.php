@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th>Event Name</th>
+                    <th>Photos</th>
                     <th>Event Description</th>
                     <th>Event Date</th>
                     <th>Event Time</th>
@@ -30,6 +31,11 @@
                 @foreach ($events as $event)
                     <tr>
                         <td>{{ $event->event_name }}</td>
+                        <td>
+                            @foreach ($event->photos as $photo)
+                                <img src="{{ asset('storage/'.$photo->photo_path) }}" alt="Product Photo" style="width:50px">
+                            @endforeach
+                        </td>
                         <td>{{ $event->event_description }}</td>
                         <td>{{ $event->event_date }}</td>
                         <td>{{ $event->event_time }}</td>

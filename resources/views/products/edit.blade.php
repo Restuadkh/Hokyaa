@@ -11,7 +11,7 @@
             @csrf
             @method('PUT')
             @foreach ($product->photos as $photo)
-                <img src="{{ asset($photo->photo_path) }}" alt="Product Photo" style="width:50px">
+                <img src="{{ asset('storage/'.$photo->photo_path) }}" alt="Product Photo" style="width:50px"> 
             @endforeach 
             <div class="mb-3">
                 <label for="photos" class="form-label">Foto Produk</label>

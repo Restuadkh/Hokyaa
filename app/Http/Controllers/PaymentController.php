@@ -41,14 +41,14 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-
+        // dd($request->all());
         $length = 10;
         $characters = '0123456789';
         $random = substr(str_shuffle($characters), 0, $length);
     
         $order = Order::findorFail($request->order_id);
         $payment = Payment::where($order->order_id);
-        if(!$payment){
+        // if(!$payment){
         // Validasi input
         $request->validate([
             // Atur aturan validasi sesuai kebutuhan            
@@ -89,9 +89,9 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('payments.show', $request->order_id)->with('error', 'Pembayaran gagal dibuat.');
         }
-        }else{
-            return redirect()->route('payments.show', $request->order_id)->with('error', 'Pembayaran gagal dibuat.');
-        }
+        // }else{
+        //     return redirect()->route('payments.show', $request->order_id)->with('error', 'Pembayaran gagal dibuat.');
+        // }
         // Simpan pembayaran baru ke database 
         // Redirect dengan pesan sukses
         // return redirect()->route('payments.index')->with('success', 'Pembayaran berhasil dibuat.');

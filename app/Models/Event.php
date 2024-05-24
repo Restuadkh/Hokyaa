@@ -19,7 +19,11 @@ class Event extends Model
         'location',
         'organizer',
     ];
-
+    public function photos()
+    {
+        return $this->hasMany(EventPhoto::class, 'event_id');
+    }
+    
     public function bookings()
     {
         return $this->hasMany(Booking::class);

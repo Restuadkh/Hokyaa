@@ -35,7 +35,9 @@
                         <td>{{ $payment->payment_date }}</td>
                         <td>{{ $payment->payment_amount }}</td>
                         <td>{{ $payment->payment_status }}</td>
-                        <td>{{ $payment->payment_method->name }}</td> 
+                        <td>
+                            {{-- {{ $payment->payment_method->name }} --}}
+                        </td> 
                         <td> 
                             <a href="{{ route('payments.edit', $payment->payment_id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('payments.destroy', $payment->payment_id) }}" method="POST"

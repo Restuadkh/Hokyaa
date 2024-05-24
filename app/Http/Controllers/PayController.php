@@ -33,7 +33,7 @@ class PayController extends Controller
         $external_id = 'Invoice_' . $randomString;
         $amount = 0;
         $descripsi = "";
-        $order = 0;
+        $order = 0; 
         $user = auth()->user()->user_id;
         if ($request->order_id) {
             $order = Order::where('order_id', $request->order_id)

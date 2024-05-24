@@ -9,7 +9,14 @@
         <form action="{{ route('events.update', $event->event_id) }}" method="POST">
             @csrf
             @method('PUT')
-
+ 
+            @foreach ($event->photos as $photo)
+                <img src="{{ asset('storage/'.$photo->photo_path) }}" alt="Product Photo" style="width:250px">
+            @endforeach 
+            <div class="mb-3">
+                <label for="photos" class="form-label">Foto Produk</label>
+                <input type="file" class="form-control" id="photos" name="photos[]" multiple>
+            </div> 
             <div class="form-group">
                 <label for="event_name">Event Name</label>
                 <input type="text" name="event_name" value="{{ $event->event_name }}" class="form-control" required>

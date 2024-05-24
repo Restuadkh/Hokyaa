@@ -4,11 +4,15 @@
 
 @section('content')
     <div class="container">
+        @include('sweetalert::alert')
         <h2>Create New Event</h2>
 
-        <form action="{{ route('events.store') }}" method="POST">
+        <form action="{{ route('events.store') }}" method="POST"  enctype="multipart/form-data">
             @csrf
-
+            <div class="mb-3">
+                <label for="photos" class="form-label">Foto Event</label>
+                <input type="file" class="form-control" id="photos" name="photos[]" multiple>
+            </div>
             <div class="form-group">
                 <label for="event_name">Event Name</label>
                 <input type="text" name="event_name" class="form-control" required>
