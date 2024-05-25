@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        // $this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $events = Event::with('photos')->get();
+        $products = Product::with('photos')->get();
+        // dd($events);
+        return view('home',['events' => $events, 'products' => $products]);
     }
 }
